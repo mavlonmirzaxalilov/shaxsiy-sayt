@@ -13,6 +13,10 @@
     try { saved = localStorage.getItem('theme'); } catch (e) { /* file:// da bloklanishi mumkin */ }
     var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
+
+    // Jonlanish uslublari faqat JS ishlayotganda qo'llanadi.
+    // Aks holda bo'limlar opacity:0 da qotib qolardi.
+    document.documentElement.classList.add('js');
   })();
 </script>
 
@@ -741,6 +745,97 @@
     max-width: 62ch;
   }
 
+  /* ---------- Yengil jonlanish ----------
+     Faqat transform va opacity ishlatiladi — bular brauzerni qiynamaydi. */
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Sahifa ochilganda hero elementlari ketma-ket ko'tarilib chiqadi */
+  .js .hero-band .proof,
+  .js .hero-band h1,
+  .js .hero-band .role,
+  .js .hero-band .about,
+  .js .hero-band .cta,
+  .js .hero-band .featured,
+  .js .hero-band .photo {
+    opacity: 0;
+    animation: rise .42s ease-out both;
+  }
+
+  .js .hero-band .proof    { animation-delay: .04s; }
+  .js .hero-band h1        { animation-delay: .10s; }
+  .js .hero-band .photo    { animation-delay: .14s; }
+  .js .hero-band .role     { animation-delay: .16s; }
+  .js .hero-band .about    { animation-delay: .22s; }
+  .js .hero-band .cta      { animation-delay: .28s; }
+  .js .hero-band .featured { animation-delay: .34s; }
+
+  /* Scroll qilganda bo'lim ekranga kirsa pastdan ko'tariladi */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .4s ease-out, transform .4s ease-out;
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Kartalar sichqoncha ostida biroz ko'tariladi */
+  .work, .review {
+    transition: transform .18s ease, border-color .18s ease;
+  }
+
+  .work:hover, .review:hover { transform: translateY(-2px); }
+  .work:hover .work-thumb { border-color: var(--line-hover); }
+  .review:hover { border-color: var(--line-hover); }
+
+  /* Akkordeon: javob yopilganda ham chizilib turadi, shunda yopilish ham silliq.
+     0fr → 1fr grid hiylasi balandlikni oldindan bilmasdan animatsiya qilish imkonini beradi. */
+  .js .faq-item > .faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows .25s ease-out, opacity .25s ease-out;
+  }
+
+  .js .faq-item[open] > .faq-answer {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  /* Padding shu o'ram ichida — aks holda hujayra 0fr ga qisqarganda ham
+     pastki padding qolib, yopiq savol ostida bo'sh joy ko'rinardi. */
+  .faq-answer-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Tizimda harakat kamaytirilgan bo'lsa — hamma jonlanish o'chadi.
+     Ba'zi odamlarda harakat bosh aylanishiga sabab bo'ladi. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-delay: 0s !important;
+      transition-duration: .01ms !important;
+    }
+
+    .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+    .js .hero-band .proof,
+    .js .hero-band h1,
+    .js .hero-band .role,
+    .js .hero-band .about,
+    .js .hero-band .cta,
+    .js .hero-band .featured,
+    .js .hero-band .photo { opacity: 1 !important; }
+  }
+
   footer {
     margin-top: 56px;
     font-size: 14px;
@@ -898,7 +993,7 @@
 
 <!-- ================= XIZMATLAR ================= -->
 <main>
-<section class="wrap service" id="xizmatlar">
+<section class="wrap service" id="xizmatlar" data-reveal>
   <div class="num">01</div>
   <div>
     <h2>Avtomatlashtirish tizimlari</h2>
@@ -916,7 +1011,7 @@
   </div>
 </section>
 
-<section class="wrap service">
+<section class="wrap service" data-reveal>
   <div class="num">02</div>
   <div>
     <h2>CRM tizimlari</h2>
@@ -934,7 +1029,7 @@
   </div>
 </section>
 
-<section class="wrap service">
+<section class="wrap service" data-reveal>
   <div class="num">03</div>
   <div>
     <h2>LMS platformalari</h2>
@@ -956,7 +1051,7 @@
      TO'LDIRISH: har kartada rasm, nom va izohni haqiqiy ish bilan almashtiring.
      Rasm tayyor bo'lsa .work-thumb ichidagi <svg> o'rniga:
      <img src="ish-1.jpg" alt="Ish nomi"> -->
-<section class="wrap works" id="ishlarim">
+<section class="wrap works" id="ishlarim" data-reveal>
   <p class="eyebrow">Ishlarim</p>
   <div class="work-grid">
 
@@ -1000,7 +1095,7 @@
 </section>
 
 <!-- ================= LOYIHALAR ================= -->
-<section class="wrap projects" id="loyihalar">
+<section class="wrap projects" id="loyihalar" data-reveal>
   <p class="eyebrow">Loyihalarim</p>
   <div class="cards">
     <article class="card">
@@ -1024,7 +1119,7 @@
 <!-- ================= MIJOZLAR FIKRI =================
      TO'LDIRISH: quyidagi 3 ta sharh — namuna matn. Har birini haqiqiy
      mijozning o'z gapi va haqiqiy ism/kompaniya bilan almashtiring. -->
-<section class="wrap reviews" id="fikrlar">
+<section class="wrap reviews" id="fikrlar" data-reveal>
   <p class="eyebrow">Mijozlar fikri</p>
   <div class="review-grid">
 
@@ -1047,50 +1142,66 @@
 </section>
 
 <!-- ================= SAVOL-JAVOB ================= -->
-<section class="wrap faq" id="savol-javob">
+<section class="wrap faq" id="savol-javob" data-reveal>
   <p class="eyebrow">Savol-javob</p>
 
   <details class="faq-item">
     <summary>Loyiha qancha vaqtda tayyor bo‘ladi?<span class="faq-sign" aria-hidden="true"></span></summary>
-    <p>
-      Muddat ish hajmiga bog‘liq: kichik avtomatlashtirish bilan to‘liq CRM yoki LMS
-      orasidagi farq katta. Shuning uchun oldindan bitta raqam aytmayman — suhbatdan
-      va talablarni yozib olganimdan keyin aniq muddatni bosqichlarga bo‘lib beraman.
-    </p>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>
+          Muddat ish hajmiga bog‘liq: kichik avtomatlashtirish bilan to‘liq CRM yoki LMS
+          orasidagi farq katta. Shuning uchun oldindan bitta raqam aytmayman — suhbatdan
+          va talablarni yozib olganimdan keyin aniq muddatni bosqichlarga bo‘lib beraman.
+        </p>
+      </div>
+    </div>
   </details>
 
   <details class="faq-item">
     <summary>Narx qanday belgilanadi?<span class="faq-sign" aria-hidden="true"></span></summary>
-    <p>
-      Tayyor narxlar ro‘yxati yo‘q, chunki har bir tizim boshqacha. Avval vazifani va
-      hajmni aniqlab olamiz, keyin men aniq summani va to‘lov bosqichlarini yozma
-      ko‘rinishda beraman. Kelishilgan hajm va narx qayd etiladi.
-    </p>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>
+          Tayyor narxlar ro‘yxati yo‘q, chunki har bir tizim boshqacha. Avval vazifani va
+          hajmni aniqlab olamiz, keyin men aniq summani va to‘lov bosqichlarini yozma
+          ko‘rinishda beraman. Kelishilgan hajm va narx qayd etiladi.
+        </p>
+      </div>
+    </div>
   </details>
 
   <details class="faq-item">
     <summary>Ishni qanday boshlaymiz?<span class="faq-sign" aria-hidden="true"></span></summary>
-    <p>
-      Birinchi suhbatda hozirgi jarayoningizni va qiyinchiliklarni tinglayman. Keyin
-      nima kerakligini yozib chiqaman va reja taklif qilaman. Kelishuvdan so‘ng ish
-      bosqichlarga bo‘linadi — har bosqich oxirida natijani ko‘rasiz va fikringizni
-      aytasiz.
-    </p>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>
+          Birinchi suhbatda hozirgi jarayoningizni va qiyinchiliklarni tinglayman. Keyin
+          nima kerakligini yozib chiqaman va reja taklif qilaman. Kelishuvdan so‘ng ish
+          bosqichlarga bo‘linadi — har bosqich oxirida natijani ko‘rasiz va fikringizni
+          aytasiz.
+        </p>
+      </div>
+    </div>
   </details>
 
   <details class="faq-item">
     <summary>Ishga tushgandan keyin qo‘llab-quvvatlaysizmi?<span class="faq-sign" aria-hidden="true"></span></summary>
-    <p>
-      Ha. Topshirgandan keyin ham aloqada bo‘laman: ishlash jarayonida chiqqan
-      xatolarni tuzataman va savollaringizga javob beraman. Yangi imkoniyat qo‘shish
-      kerak bo‘lsa, uni alohida kelishib olamiz.
-    </p>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>
+          Ha. Topshirgandan keyin ham aloqada bo‘laman: ishlash jarayonida chiqqan
+          xatolarni tuzataman va savollaringizga javob beraman. Yangi imkoniyat qo‘shish
+          kerak bo‘lsa, uni alohida kelishib olamiz.
+        </p>
+      </div>
+    </div>
   </details>
 
 </section>
 
 <!-- ================= ALOQA ================= -->
-<section class="wrap contact" id="aloqa">
+<section class="wrap contact" id="aloqa" data-reveal>
   <p class="eyebrow">Bog‘lanish</p>
   <div class="contacts">
     <a class="btn primary" href="tel:+998916960729">
@@ -1163,6 +1274,59 @@
     // Ekran kengayganda ochiq menyu osilib qolmasin
     window.matchMedia('(min-width: 1001px)').addEventListener('change', function (e) {
       if (e.matches) setMenu(false);
+    });
+  })();
+
+  // Scroll qilganda bo'limlarni ko'rsatish
+  (function () {
+    var targets = document.querySelectorAll('[data-reveal]');
+
+    function hammasiniKorsat() {
+      targets.forEach(function (t) { t.classList.add('is-visible'); });
+    }
+
+    // Eski brauzerda yoki harakat kamaytirilgan bo'lsa — darrov ko'rsatamiz
+    var kamHarakat = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (kamHarakat || !('IntersectionObserver' in window)) {
+      hammasiniKorsat();
+      return;
+    }
+
+    var javobBerdi = false;
+
+    var kuzatuvchi = new IntersectionObserver(function (entries) {
+      javobBerdi = true;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        kuzatuvchi.unobserve(entry.target);  // bir marta ishlasa yetarli
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach(function (t) { kuzatuvchi.observe(t); });
+
+    // Xavfsizlik to'ri. Odatda kuzatuvchi darrov javob beradi va bu ishlamaydi.
+    // Ammo u biror sababga ko'ra jim qolsa, matn butunlay ko'rinmay qolardi —
+    // jonlanishdan voz kechib, hammasini ko'rsatgan ma'qul.
+    setTimeout(function () {
+      if (javobBerdi) return;
+      kuzatuvchi.disconnect();
+      hammasiniKorsat();
+    }, 1200);
+  })();
+
+  // Savol-javob: bir vaqtda faqat bitta javob ochiq turadi
+  (function () {
+    var items = document.querySelectorAll('.faq-item');
+
+    items.forEach(function (item) {
+      item.addEventListener('toggle', function () {
+        if (!item.open) return;
+        items.forEach(function (boshqa) {
+          if (boshqa !== item) boshqa.open = false;
+        });
+      });
     });
   })();
 </script>
