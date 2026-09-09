@@ -539,13 +539,220 @@
     color: var(--muted);
   }
 
+  /* ---------- Burger tugmasi va ochiladigan menyu ---------- */
+  .burger-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    padding: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+
+  .burger-btn:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .burger-btn svg { width: 18px; height: 18px; }
+
+  /* Menyu ochiq bo'lsa uch chiziq o'rniga xoch belgisi */
+  .icon-close { display: none; }
+  .burger-btn[aria-expanded="true"] .icon-close { display: block; }
+  .burger-btn[aria-expanded="true"] .icon-burger { display: none; }
+
+  .mobile-menu {
+    border-top: 1px solid var(--line);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .mobile-menu[hidden] { display: none; }
+
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+    padding-bottom: 10px;
+  }
+
+  .mobile-menu a {
+    padding: 13px 2px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: color .18s ease;
+  }
+
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--accent); }
+
+  /* ---------- Ishlarim ---------- */
+  .works {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    border-top: 1px solid var(--line);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+  }
+
+  .work-thumb {
+    aspect-ratio: 4 / 3;
+    margin-bottom: 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--accent-soft);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .work-thumb svg {
+    width: 34px;
+    height: 34px;
+    opacity: .5;
+  }
+
+  /* Rasm qo'yilganda ramkani to'liq egallaydi */
+  .work-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work h3 {
+    margin: 0 0 6px;
+    font-size: 17.5px;
+  }
+
+  .work p {
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+
+  /* ---------- Mijozlar fikri ---------- */
+  .reviews {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    border-top: 1px solid var(--line);
+  }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .review {
+    margin: 0;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .review blockquote {
+    margin: 0 0 16px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+
+  .review figcaption {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* ---------- Savol-javob ---------- */
+  .faq {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    border-top: 1px solid var(--line);
+  }
+
+  .faq-item { border-bottom: 1px solid var(--line); }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px 0;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    list-style: none;
+    transition: color .18s ease;
+  }
+
+  /* Brauzerning o'z uchburchagini olib tashlaymiz */
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--accent); }
+
+  /* Ochilganda "+" belgisi "−" ga aylanadi */
+  .faq-sign {
+    position: relative;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+  }
+
+  .faq-sign::before,
+  .faq-sign::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+
+  .faq-sign::before { top: 9px; left: 2px; width: 16px; height: 2px; }
+  .faq-sign::after { top: 2px; left: 9px; width: 2px; height: 16px; }
+
+  .faq-item[open] .faq-sign::after {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .faq-item p {
+    margin: 0;
+    padding: 0 0 22px;
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+
   footer {
     margin-top: 56px;
     font-size: 14px;
     color: var(--muted);
   }
 
-  /* Navbar tor ekranda: ortiqcha elementlar bosqichma-bosqich yashiriladi */
+  /* Navbar tor ekranda: havolalar burger menyusiga yig'iladi */
+  @media (max-width: 1000px) {
+    .nav-links { display: none; }
+    .burger-btn { display: inline-flex; }
+  }
+
   @media (max-width: 900px) {
     .nav-pill, .logo-star { display: none; }
   }
@@ -557,16 +764,13 @@
   @media (max-width: 620px) {
     .nav-full { display: none; }
     .nav-short { display: inline; font-size: 18px; color: var(--accent); }
-    .nav-links a { padding: 7px 10px; font-size: 14.5px; }
   }
 
   /* Eng tor ekranlarda navbar bir qatorga sig'ishi uchun */
   @media (max-width: 440px) {
     .nav-inner { gap: 8px; }
-    .nav-right { gap: 2px; }
-    .nav-links { gap: 0; }
-    .nav-links a { padding: 6px 6px; font-size: 13.5px; }
-    .theme-btn { width: 32px; height: 32px; }
+    .nav-right { gap: 6px; }
+    .theme-btn, .burger-btn { width: 32px; height: 32px; }
     .proof {
       flex-direction: column;
       align-items: flex-start;
@@ -607,8 +811,10 @@
     <div class="nav-right">
       <div class="nav-links">
         <a href="#xizmatlar">Xizmatlar</a>
+        <a href="#ishlarim">Ishlarim</a>
         <a href="#loyihalar">Loyihalar</a>
-        <a href="#aloqa">Bog‘lanish</a>
+        <a href="#fikrlar">Fikrlar</a>
+        <a href="#savol-javob">Savol-javob</a>
       </div>
 
       <button class="theme-btn" id="themeBtn" type="button" aria-label="Mavzuni almashtirish" title="Mavzuni almashtirish">
@@ -621,7 +827,28 @@
         </svg>
       </button>
 
+      <button class="burger-btn" id="burgerBtn" type="button" aria-label="Menyu" aria-controls="mobileMenu" aria-expanded="false">
+        <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+
       <a class="nav-cta" href="#aloqa">Bog‘lanish</a>
+    </div>
+  </div>
+
+  <!-- Tor ekranlarda burger tugmasi ochadigan menyu -->
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <div class="wrap wide mobile-menu-inner">
+      <a href="#xizmatlar">Xizmatlar</a>
+      <a href="#ishlarim">Ishlarim</a>
+      <a href="#loyihalar">Loyihalar</a>
+      <a href="#fikrlar">Mijozlar fikri</a>
+      <a href="#savol-javob">Savol-javob</a>
+      <a href="#aloqa">Bog‘lanish</a>
     </div>
   </div>
 </nav>
@@ -725,6 +952,53 @@
   </div>
 </section>
 
+<!-- ================= ISHLARIM =================
+     TO'LDIRISH: har kartada rasm, nom va izohni haqiqiy ish bilan almashtiring.
+     Rasm tayyor bo'lsa .work-thumb ichidagi <svg> o'rniga:
+     <img src="ish-1.jpg" alt="Ish nomi"> -->
+<section class="wrap works" id="ishlarim">
+  <p class="eyebrow">Ishlarim</p>
+  <div class="work-grid">
+
+    <article class="work">
+      <div class="work-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <circle cx="8.5" cy="9.5" r="1.6"/>
+          <path d="M21 15.5l-4.5-4.5L9 18.5"/>
+        </svg>
+      </div>
+      <h3>Ish nomi</h3>
+      <p>Qisqa izoh: mijoz kim edi, qanday muammoni hal qildingiz va natija nima bo‘ldi.</p>
+    </article>
+
+    <article class="work">
+      <div class="work-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <circle cx="8.5" cy="9.5" r="1.6"/>
+          <path d="M21 15.5l-4.5-4.5L9 18.5"/>
+        </svg>
+      </div>
+      <h3>Ish nomi</h3>
+      <p>Qisqa izoh: mijoz kim edi, qanday muammoni hal qildingiz va natija nima bo‘ldi.</p>
+    </article>
+
+    <article class="work">
+      <div class="work-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <circle cx="8.5" cy="9.5" r="1.6"/>
+          <path d="M21 15.5l-4.5-4.5L9 18.5"/>
+        </svg>
+      </div>
+      <h3>Ish nomi</h3>
+      <p>Qisqa izoh: mijoz kim edi, qanday muammoni hal qildingiz va natija nima bo‘ldi.</p>
+    </article>
+
+  </div>
+</section>
+
 <!-- ================= LOYIHALAR ================= -->
 <section class="wrap projects" id="loyihalar">
   <p class="eyebrow">Loyihalarim</p>
@@ -745,6 +1019,74 @@
       <p>Kunlik hisobotlarni qo‘lda yig‘ish o‘rniga avtomatik shakllantiruvchi web panel va bildirishnomalar.</p>
     </article>
   </div>
+</section>
+
+<!-- ================= MIJOZLAR FIKRI =================
+     TO'LDIRISH: quyidagi 3 ta sharh — namuna matn. Har birini haqiqiy
+     mijozning o'z gapi va haqiqiy ism/kompaniya bilan almashtiring. -->
+<section class="wrap reviews" id="fikrlar">
+  <p class="eyebrow">Mijozlar fikri</p>
+  <div class="review-grid">
+
+    <figure class="review">
+      <blockquote>“Sharh matni: mijoz o‘z so‘zlari bilan 1–2 gap — nima qilib berdingiz va bu ularning ishiga qanday ta’sir qildi.”</blockquote>
+      <figcaption>Ism Familiya · Kompaniya</figcaption>
+    </figure>
+
+    <figure class="review">
+      <blockquote>“Sharh matni: mijoz o‘z so‘zlari bilan 1–2 gap — nima qilib berdingiz va bu ularning ishiga qanday ta’sir qildi.”</blockquote>
+      <figcaption>Ism Familiya · Kompaniya</figcaption>
+    </figure>
+
+    <figure class="review">
+      <blockquote>“Sharh matni: mijoz o‘z so‘zlari bilan 1–2 gap — nima qilib berdingiz va bu ularning ishiga qanday ta’sir qildi.”</blockquote>
+      <figcaption>Ism Familiya · Kompaniya</figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ================= SAVOL-JAVOB ================= -->
+<section class="wrap faq" id="savol-javob">
+  <p class="eyebrow">Savol-javob</p>
+
+  <details class="faq-item">
+    <summary>Loyiha qancha vaqtda tayyor bo‘ladi?<span class="faq-sign" aria-hidden="true"></span></summary>
+    <p>
+      Muddat ish hajmiga bog‘liq: kichik avtomatlashtirish bilan to‘liq CRM yoki LMS
+      orasidagi farq katta. Shuning uchun oldindan bitta raqam aytmayman — suhbatdan
+      va talablarni yozib olganimdan keyin aniq muddatni bosqichlarga bo‘lib beraman.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Narx qanday belgilanadi?<span class="faq-sign" aria-hidden="true"></span></summary>
+    <p>
+      Tayyor narxlar ro‘yxati yo‘q, chunki har bir tizim boshqacha. Avval vazifani va
+      hajmni aniqlab olamiz, keyin men aniq summani va to‘lov bosqichlarini yozma
+      ko‘rinishda beraman. Kelishilgan hajm va narx qayd etiladi.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ishni qanday boshlaymiz?<span class="faq-sign" aria-hidden="true"></span></summary>
+    <p>
+      Birinchi suhbatda hozirgi jarayoningizni va qiyinchiliklarni tinglayman. Keyin
+      nima kerakligini yozib chiqaman va reja taklif qilaman. Kelishuvdan so‘ng ish
+      bosqichlarga bo‘linadi — har bosqich oxirida natijani ko‘rasiz va fikringizni
+      aytasiz.
+    </p>
+  </details>
+
+  <details class="faq-item">
+    <summary>Ishga tushgandan keyin qo‘llab-quvvatlaysizmi?<span class="faq-sign" aria-hidden="true"></span></summary>
+    <p>
+      Ha. Topshirgandan keyin ham aloqada bo‘laman: ishlash jarayonida chiqqan
+      xatolarni tuzataman va savollaringizga javob beraman. Yangi imkoniyat qo‘shish
+      kerak bo‘lsa, uni alohida kelishib olamiz.
+    </p>
+  </details>
+
 </section>
 
 <!-- ================= ALOQA ================= -->
@@ -788,6 +1130,39 @@
       var saved = null;
       try { saved = localStorage.getItem('theme'); } catch (err) {}
       if (!saved) root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    });
+  })();
+
+  // Tor ekranlardagi burger menyusi
+  (function () {
+    var burger = document.getElementById('burgerBtn');
+    var menu = document.getElementById('mobileMenu');
+
+    function setMenu(open) {
+      menu.hidden = !open;
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    burger.addEventListener('click', function () {
+      setMenu(menu.hidden);
+    });
+
+    // Havola bosilganda menyu o'zi yopiladi
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+
+    // Escape tugmasi menyuni yopadi va fokusni tugmaga qaytaradi
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) {
+        setMenu(false);
+        burger.focus();
+      }
+    });
+
+    // Ekran kengayganda ochiq menyu osilib qolmasin
+    window.matchMedia('(min-width: 1001px)').addEventListener('change', function (e) {
+      if (e.matches) setMenu(false);
     });
   })();
 </script>
