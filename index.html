@@ -6,6 +6,26 @@
 <title>Mavlon Mirzaxalilov — Dasturchi va Front-end mentor</title>
 <meta name="description" content="Mavlon Mirzaxalilov — 3 yillik tajribaga ega dasturchi va front-end mentor. Avtomatlashtirish tizimlari, CRM va LMS yechimlari.">
 
+<!-- Favicon: alohida fayl emas, shu yerning o'zida SVG.
+     To'q jigarrang kvadrat ustida sayt rangidagi "M" harfi. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232d1c12'/%3E%3Ctext x='32' y='45' font-family='Segoe UI,system-ui,sans-serif' font-size='38' font-weight='700' fill='%23e08a4d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+<!-- Havola Telegram/ijtimoiy tarmoqqa tashlanganda chiqadigan karta.
+     DIQQAT: bu manzillar to'liq (absolyut) bo'lishi shart — nisbiy yo'l ishlamaydi.
+     O'z domeningizga o'tsangiz, quyidagi ikkita URL ni yangilash kerak. -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:site_name" content="Mavlon Mirzaxalilov">
+<meta property="og:url" content="https://mavlonmirzaxalilov.github.io/shaxsiy-sayt/">
+<meta property="og:title" content="Mavlon Mirzaxalilov — Dasturchi va front-end mentor">
+<meta property="og:description" content="Biznes jarayonlarini avtomatlashtiruvchi tizimlar, jumladan CRM va LMS yechimlarini noldan loyihalashtirib, ishga tushiraman.">
+<meta property="og:image" content="https://mavlonmirzaxalilov.github.io/shaxsiy-sayt/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mavlon Mirzaxalilov — dasturchi va front-end mentor">
+
+<meta name="twitter:card" content="summary_large_image">
+
 <!-- Mavzuni sahifa chizilishidan OLDIN o'rnatadi — shunda yorug'lik "chaqnashi" bo'lmaydi -->
 <script>
   (function () {
@@ -165,13 +185,14 @@
     gap: 4px;
   }
 
-  /* Mavzu almashtirish tugmasi */
+  /* Mavzu almashtirish tugmasi.
+     40px — barmoq bilan bosish uchun eng kam qulay o'lcham. */
   .theme-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     flex: none;
     padding: 0;
     border-radius: 9px;
@@ -548,8 +569,8 @@
     display: none;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     flex: none;
     padding: 0;
     border-radius: 9px;
@@ -865,7 +886,6 @@
   @media (max-width: 440px) {
     .nav-inner { gap: 8px; }
     .nav-right { gap: 6px; }
-    .theme-btn, .burger-btn { width: 32px; height: 32px; }
     .proof {
       flex-direction: column;
       align-items: flex-start;
